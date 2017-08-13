@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "he": "^1.1.1",
+    "pg": "^7.1.0",
+    "phantom": "^4.0.5",
+    "sequelize": "^4.4.3"
+  }
+}

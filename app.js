@@ -76,7 +76,8 @@ q.drain = () => {
         const $ = cheerio.load(content);
         let article = $('.content')
         //page.render('page'+i+'.jpg',{format: 'jpeg', quality: '60'})
-        for(let i = 0; i < article.length; i++) {
+        //article.length
+        for(let i = 0; i < 1; i++) {
             let news = {}
             
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())

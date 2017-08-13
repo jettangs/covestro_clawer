@@ -25,6 +25,7 @@ const News = sequelize.define('news', {
 
 News.sync();
 
+let news_list = []
 
 let q = asyncs.queue((news,callback) => {
   (async () => {
@@ -88,8 +89,11 @@ q.drain = () => {
 
             news['author'] = 'covestro'
             let cover = article.eq(i).find('img').attr('src')
-            if(!cover) cover = 'no cover'
-            news['cover'] = 'https://press.covestro.com/news.nsf/id/'+ cover
+            if(cover) {
+                news['cover'] = 'https://press.covestro.com/news.nsf/id/'+ cover
+            }else {
+                news['cover'] = 'no cover'
+            }
             console.log("cover ->"+news.cover)
 
             news['host'] = 'https://press.covestro.com'

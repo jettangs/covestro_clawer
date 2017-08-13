@@ -84,22 +84,22 @@ q.drain = () => {
         for(let i = 0; i < article.length; i++) {
             let news = {}
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())
-            news['title'] = article.eq(i).find('.headline').find('a').html()
-            console.log("title ->"+news.title)
+            let title = article.eq(i).find('.headline').find('a').html()
+            news['title'] = title? title : "no title"
+            //console.log("title ->"+news.title)
 
             let description = article.eq(i).find('.underline').html()
             news['description'] = description? description : 'no description'
-            console.log("description ->"+news.description)
+            //console.log("description ->"+news.description)
 
-            news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.headline').find('a').attr('href')
-            console.log("link ->"+news.link)
-
-            news['author'] = 'covestro'
+            let link = article.eq(i).find('.headline').find('a').attr('href')
+            news['link'] = link? 'https://press.covestro.com/news.nsf/id/'+link : "no link"
+            //console.log("link ->"+news.link)
 
             let cover = article.eq(i).find('img').attr('src')
-            news['cover'] = cover ? 'https://press.covestro.com/news.nsf/id/'+cover : 'no cover'
-            console.log("cover ->"+news.cover)
-
+            news['cover'] = cover? 'https://press.covestro.com/news.nsf/id/'+cover : 'no cover'
+            //console.log("cover ->"+news.cover)
+            news['author'] = 'covestro'
             news['host'] = 'https://press.covestro.com'
             news_list.push(news)
         }

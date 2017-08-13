@@ -87,7 +87,9 @@ q.drain = () => {
             console.log("link ->"+news.link)
 
             news['author'] = 'covestro'
-            news['cover'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('img').attr('src')
+            let cover = article.eq(i).find('img').attr('src')
+            if(!cover) cover = 'no cover'
+            news['cover'] = 'https://press.covestro.com/news.nsf/id/'+ cover
             console.log("cover ->"+news.cover)
 
             news['host'] = 'https://press.covestro.com'

@@ -86,6 +86,7 @@ q.drain = () => {
             news['description'] = description? description : 'no description'
             console.log("description ->"+news.description)
 
+
             news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.headline').find('a').attr('href')
             console.log("link ->"+news.link)
 

@@ -71,7 +71,7 @@ q.drain = () => {
         // })
         console.log('Status: ' + status);
         const content = await page.property('content');
-        console.log("content=>"+content)
+       // console.log("content=>"+content)
         const $ = cheerio.load(content);
         let article = $('.content')
         //page.render('page'+i+'.jpg',{format: 'jpeg', quality: '60'})
@@ -81,19 +81,18 @@ q.drain = () => {
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())
             news['title'] = he.decode(article.eq(i).find('.headline').find('a').html())
             console.log("title ->"+news.title)
-            news['description'] = he.decode(article.eq(i).find('.underline').html())
+
+            let description = he.decode(article.eq(i).find('.underline').html())
+            news['description'] = description? description : 'no description'
             console.log("description ->"+news.description)
 
             news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.headline').find('a').attr('href')
             console.log("link ->"+news.link)
 
             news['author'] = 'covestro'
+
             let cover = article.eq(i).find('img').attr('src')
-            if(cover) {
-                news['cover'] = 'https://press.covestro.com/news.nsf/id/'+ cover
-            }else {
-                news['cover'] = 'no cover'
-            }
+            news['cover'] = cover ? 'https://press.covestro.com/news.nsf/id/'+cover : 'no cover'
             console.log("cover ->"+news.cover)
 
             news['host'] = 'https://press.covestro.com'

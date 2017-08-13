@@ -29,19 +29,22 @@ let news_list = []
 
 let q = asyncs.queue((news,callback) => {
   (async () => {
-    console.log("--->"+news.link);
-    const instance = await phantom.create(['--load-images=no']);
-    const page = await instance.createPage();
-    await page.on("onResourceRequested", function(requestData) {
-        console.info('Requesting', requestData.url)
-    });
-    const status = await page.open(news.link);
-    const content = await page.property('content');
-    const $ = cheerio.load(content)
-    news['content'] = he.decode($(".container-content").html())
-    News.create(news)
-    await instance.exit();
-    callback()
+    try{
+        console.log("--->"+news.link);
+        const instance = await phantom.create(['--load-images=no']);
+        const page = await instance.createPage();
+        await page.on("onResourceRequested", function(requestData) {
+            console.info('Requesting', requestData.url)
+        });
+        const status = await page.open(news.link);
+        const content = await page.property('content');
+        const $ = cheerio.load(content)
+        news['content'] = he.decode($(".container-content").html())
+        //News.create(news)
+        await instance.exit();
+        callback()        
+    }catch(e){console.log(e)}
+
   })()
   
 })
@@ -80,7 +83,6 @@ q.drain = () => {
         //article.length
         for(let i = 0; i < article.length; i++) {
             let news = {}
-            
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())
             news['title'] = he.decode(article.eq(i).find('.headline').find('a').html())
             console.log("title ->"+news.title)
@@ -104,8 +106,10 @@ q.drain = () => {
     }
     await instance.exit();
     //fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
+//
 
     news_list.forEach(news => {
+//https://press.covestro.com/news.nsf/id/Trendy-automotive-finish-for-an-evocative-appearance?Open&parent=Home_EN&ccm=000
         q.push(news, err => { if(err) console.log(err) })
     })
     

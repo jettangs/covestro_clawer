@@ -47,7 +47,7 @@ let q = asyncs.queue((news,callback) => {
 })
 
 q.saturated = function() { 
-    console.log('all workers to be used'); 
+    console.info('all workers to be used'); 
 }
 
 q.drain = () => {
@@ -64,7 +64,7 @@ q.drain = () => {
         console.info('Requesting', requestData.url)
     });
 // url.length
-    for(let i = 0; i < url.length; i++){
+    for(let i = 0; i < 1; i++){
         console.log(url[i])
         const status = await page.open(url[i]);
         // await page.property('scrollPosition', {

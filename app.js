@@ -1,6 +1,5 @@
 "use strict";
 const fs = require('fs');
-const he = require("he");
 const asyncs = require("async")
 const cheerio = require('cheerio');
 const phantom = require('phantom');
@@ -85,11 +84,11 @@ q.drain = () => {
         for(let i = 0; i < article.length; i++) {
             let news = {}
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())
-            news['title'] = he.decode(article.eq(i).find('.headline').find('a').html())
+            news['title'] = article.eq(i).find('.headline').find('a').html()
             console.log("title ->"+news.title)
 
             let description = article.eq(i).find('.underline').html()
-            news['description'] = description? he.decode(description) : 'no description'
+            news['description'] = description? description : 'no description'
             console.log("description ->"+news.description)
 
             news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.headline').find('a').attr('href')

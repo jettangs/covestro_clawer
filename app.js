@@ -65,7 +65,7 @@ q.drain = () => {
     });
 // url.length
     for(let i = 0; i < 1; i++){
-        const status = await page.open(url);
+        const status = await page.open(url[i]);
         // await page.property('scrollPosition', {
         //   top: 100
         // })

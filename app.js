@@ -75,6 +75,7 @@ q.drain = () => {
         //page.render('page'+i+'.jpg',{format: 'jpeg', quality: '60'})
         for(let i = 0; i < article.length; i++) {
             let news = {}
+            console.log(article.eq(i).find('.textcontainer.textcontainerQ').html())
             news['title'] = he.decode(article.eq(i).find('.textcontainer.textcontainerQ').find('.headline').find('a').html())
             news['description'] = he.decode(aarticle.eq(i).find('.textcontainer.textcontainerQ').find('.underline').html())
             news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.textcontainer.textcontainerQ').find('.headline').find('a').attr('href')

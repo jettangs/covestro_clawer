@@ -53,6 +53,7 @@ q.saturated = function() {
 q.drain = () => {
     console.log('all urls have been processed');
     fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
+    sequelize.close()
 }
 
 (async () => {

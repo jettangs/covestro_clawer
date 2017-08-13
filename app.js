@@ -38,7 +38,7 @@ let q = asyncs.queue((news,callback) => {
     const status = await page.open(news.link);
     const content = await page.property('content');
     const $ = cheerio.load(content)
-    news['content'] = he.decode($(".main-content").html().replace(/\n/g, "").replace(/\\/g, ""))
+    news['content'] = he.decode($(".container-content").html())
     //News.create(news)
     await instance.exit();
     callback()
@@ -52,7 +52,7 @@ q.saturated = function() {
 
 q.drain = () => {
     console.log('all urls have been processed');
-    //fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
+    fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
 }
 
 (async () => {
@@ -64,7 +64,7 @@ q.drain = () => {
         console.info('Requesting', requestData.url)
     });
 // url.length
-    for(let i = 0; i < 1; i++){
+    for(let i = 0; i < url.length; i++){
         console.log(url[i])
         const status = await page.open(url[i]);
         // await page.property('scrollPosition', {
@@ -87,7 +87,6 @@ q.drain = () => {
             news['description'] = description? he.decode(description) : 'no description'
             console.log("description ->"+news.description)
 
-
             news['link'] = 'https://press.covestro.com/news.nsf/id/'+article.eq(i).find('.headline').find('a').attr('href')
             console.log("link ->"+news.link)
 
@@ -100,13 +99,12 @@ q.drain = () => {
             news['host'] = 'https://press.covestro.com'
             news_list.push(news)
         }
-
     }
     await instance.exit();
-    fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
+    //fs.writeFile('news.txt', JSON.stringify(news_list), function(err){ if (err) throw err });
 
     news_list.forEach(news => {
-        //q.push(news, err => { if(err) console.log(err) })
+        q.push(news, err => { if(err) console.log(err) })
     })
     
   }catch(err){

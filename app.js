@@ -65,7 +65,7 @@ q.drain = () => {
         console.info('Requesting', requestData.url)
     });
 // url.length
-    for(let i = 0; i < 1; i++){
+    for(let i = 0; i < url.length; i++){
         console.log(url[i])
         const status = await page.open(url[i]);
         // await page.property('scrollPosition', {
@@ -78,7 +78,7 @@ q.drain = () => {
         let article = $('.content')
         //page.render('page'+i+'.jpg',{format: 'jpeg', quality: '60'})
         //article.length
-        for(let i = 0; i < 1; i++) {
+        for(let i = 0; i < article.length; i++) {
             let news = {}
             
             //console.log("art=>"+article.eq(i).find('.textcontainer.textcontainerQ').html())

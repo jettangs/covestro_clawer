@@ -83,8 +83,8 @@ q.drain = () => {
             news['title'] = he.decode(article.eq(i).find('.headline').find('a').html())
             console.log("title ->"+news.title)
 
-            let description = he.decode(article.eq(i).find('.underline').html())
-            news['description'] = description? description : 'no description'
+            let description = article.eq(i).find('.underline').html()
+            news['description'] = description? he.decode(description) : 'no description'
             console.log("description ->"+news.description)
 
 
